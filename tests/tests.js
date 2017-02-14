@@ -71,11 +71,27 @@ test("Can suggest common email domain corrections", function() {
 		{
 			subject: "test@alo.com",
 			suggestion: "test@aol.com"
-		}
+		},
+        {
+            subject: "test@abc.bg",
+            suggestion: "test@abv.bg"
+        },
+        {
+            subject: "test@abb.bg",
+            suggestion: "test@abv.bg"
+        },
+        {
+            subject: "test@mai.bg",
+            suggestion: "test@mail.bg"
+        },
+        {
+            subject: "test@maile.bg",
+            suggestion: "test@mail.bg"
+        }
 	];
 
 	expect(subjects.length);
-	
+
 	subjects.forEach(function(item){
 		verimail.verify(item.subject, function(status, message, suggestion){
 			ok(item.suggestion == suggestion, "'" + item.subject + "' suggested as '" + suggestion + "'");
@@ -106,11 +122,19 @@ test("Can suggest common TLD corrections", function() {
 		{
 			subject: "test@test.ogr",
 			suggestion: "test@test.org"
-		}
+		},
+        {
+            subject: "test@test.bgg",
+            suggestion: "test@test.bg"
+        },
+        {
+            subject: "test@test.bbg",
+            suggestion: "test@test.bg"
+        }
 	];
 
 	expect(subjects.length);
-	
+
 	subjects.forEach(function(item){
 		verimail.verify(item.subject, function(status, message, suggestion){
 			ok(item.suggestion == suggestion, "'" + item.subject + "' suggested as '" + suggestion + "'");
