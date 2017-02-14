@@ -27,7 +27,7 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
     // Set default options
     this.options = {
         // Service url
-        url: "http://jsapi.comfirm.se/verify/v1/",
+        url: "http://jsapi.comfirm.se/verify/v1/", //api no longer avalible.
         // Authentication token.. Leave empty for client-side only validation.
         token: null,
         // Fore emails to require a valid TLD
@@ -56,8 +56,8 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
     this.Service = {};
     this.Service.verify = function(email, onStatusUpdate){
         //setTimeout(1000 * 3, function(){
-            // onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
-            onStatusUpdate(Verimail.Status.CorrectSyntax, this.getLanguageText("correct"));
+            onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
+            // onStatusUpdate(Verimail.Status.CorrectSyntax, this.getLanguageText("correct")); //not tested
         //});
     };
 };
@@ -98,7 +98,8 @@ Verimail.Language = {
         invalidTld: "Top level domain <span class='tld'>%s</span> does not exist",
         domainBlocked: "Domain <span class='blocked'>%s</span> is not allowed",
         invalidFormat: "Email is not correctly formatted",
-        empty: "Email is empty"
+        empty: "Email is empty",
+        correct: "It looks OK!"
     },
     sv: {
         success: "E-postadressen är godkänd",
@@ -106,7 +107,8 @@ Verimail.Language = {
         invalidTld: "Toppdomänen <span class='tld'>%s</span> existerar inte",
         domainBlocked: "Domänen <span class='domain'>%s</span> är inte tillåten",
         invalidFormat: "Ogiltig e-postadress",
-        empty: "E-postadressen är tom"
+        empty: "E-postadressen är tom",
+        correct: "Det ser OK!"
     },
     bg: {
         success: "Имейлът изглежда добре.",
@@ -114,7 +116,8 @@ Verimail.Language = {
         invalidTld: "Домейн от първо ниво <span class='tld'>%s</span> не съществува.",
         domainBlocked: "Домейнът <span class='blocked'>%s</span> не е допустим.",
         invalidFormat: "Имейлът не е правилно форматиран.",
-        empty: "Празен имейл."
+        empty: "Празен имейл.",
+        correct: "Изглежда добре!"
     }
 };
 

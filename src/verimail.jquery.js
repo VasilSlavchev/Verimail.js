@@ -27,7 +27,7 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
     // Set default options
     this.options = {
         // Service url
-        url: "http://jsapi.comfirm.se/verify/v1/",
+        url: "http://jsapi.comfirm.se/verify/v1/", //api no longer avalible.
         // Authentication token.. Leave empty for client-side only validation.
         token: null,
         // Fore emails to require a valid TLD
@@ -56,8 +56,8 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
     this.Service = {};
     this.Service.verify = function(email, onStatusUpdate){
         //setTimeout(1000 * 3, function(){
-            // onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
-            onStatusUpdate(Verimail.Status.CorrectSyntax, this.getLanguageText("correct"));
+            onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
+            // onStatusUpdate(Verimail.Status.CorrectSyntax, this.getLanguageText("correct")); //not tested
         //});
     };
 };
