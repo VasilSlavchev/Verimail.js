@@ -35,7 +35,7 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
         // Deny users from using a temp email domain (e.g. mailinator.com)
         denyTempEmailDomains: false,
         // Language to use (currently supported, [en, sv, bg])
-        language: 'bg',
+        language: 'en',
         // Determines whether or not messages are in HTML or just Plain Text
         richTextMessages: true,
         // Distance function (leave empty for default: levenshtein)
@@ -50,13 +50,14 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
     }
 
     // Set the language, default to english if non-existing
-    this.setLanguage(this.options.language, 'bg');
+    this.setLanguage(this.options.language, 'en');
 
     // Temporary..
     this.Service = {};
     this.Service.verify = function(email, onStatusUpdate){
         //setTimeout(1000 * 3, function(){
-            onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
+            // onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
+            onStatusUpdate(Verimail.Status.CorrectSyntax, this.getLanguageText("correct"));
         //});
     };
 };
@@ -133,7 +134,7 @@ Verimail.MostCommonTlds = {
     com:null, org:null, edu:null, gov:null, uk:null, net:null,
     ca:null, de:null, jp:null, fr:null, au:null, us:null, ru:null,
     ch:null, it:null, nl:null, se:null, dk:null, no:null, es:null, mil:null,
-    bg:null, biz:null, info:null, me:null,
+    bg:null, biz:null, info:null, me:null
 };
 
 // Table of all TLDs registered by IANA

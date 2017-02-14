@@ -34,7 +34,7 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
         enforceTld: true,
         // Deny users from using a temp email domain (e.g. mailinator.com)
         denyTempEmailDomains: false,
-        // Language to use (currently supported, [en, sv])
+        // Language to use (currently supported, [en, sv, bg])
         language: 'en',
         // Determines whether or not messages are in HTML or just Plain Text
         richTextMessages: true,
@@ -56,7 +56,8 @@ var Verimail = Comfirm.AlphaMail.Verimail = function(options){
     this.Service = {};
     this.Service.verify = function(email, onStatusUpdate){
         //setTimeout(1000 * 3, function(){
-            onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
+            // onStatusUpdate(Verimail.Status.CorrectSyntax, "It looks OK!");
+            onStatusUpdate(Verimail.Status.CorrectSyntax, this.getLanguageText("correct"));
         //});
     };
 };
@@ -97,7 +98,8 @@ Verimail.Language = {
         invalidTld: "Top level domain <span class='tld'>%s</span> does not exist",
         domainBlocked: "Domain <span class='blocked'>%s</span> is not allowed",
         invalidFormat: "Email is not correctly formatted",
-        empty: "Email is empty"
+        empty: "Email is empty",
+        correct: "It looks OK!"
     },
     sv: {
         success: "E-postadressen är godkänd",
@@ -105,7 +107,17 @@ Verimail.Language = {
         invalidTld: "Toppdomänen <span class='tld'>%s</span> existerar inte",
         domainBlocked: "Domänen <span class='domain'>%s</span> är inte tillåten",
         invalidFormat: "Ogiltig e-postadress",
-        empty: "E-postadressen är tom"
+        empty: "E-postadressen är tom",
+        correct: "Det ser OK!"
+    },
+    bg: {
+        success: "Имейлът изглежда добре.",
+        typo: "Да не би да имахте предвид <span class='suggestion'>%s</span>?",
+        invalidTld: "Домейн от първо ниво <span class='tld'>%s</span> не съществува.",
+        domainBlocked: "Домейнът <span class='blocked'>%s</span> не е допустим.",
+        invalidFormat: "Имейлът не е правилно форматиран.",
+        empty: "Празен имейл.",
+        correct: "Изглежда добре!"
     }
 };
 
@@ -115,7 +127,8 @@ Verimail.MostCommonEmailDomains = {
     "yahoo.com":null, "yahoo.co.uk":null, "facebook.com":null, "live.com":null,
     "mail.com":null, "gmx.com":null, "aol.com":null, "verizon.net":null, "comcast.net":null,
     "googlemail.com":null, "att.net":null, "mail.com":null, "mac.com":null,
-    "rocketmail.com":null, "ymail.com":null
+    "rocketmail.com":null, "ymail.com":null,
+    "gmail.bg":null, "mail.bg":null, "abv.bg":null, "dir.bg":null, "start.bg":null, "data.bg":null
 };
 
 // Table of the most common TLDs according to Google
@@ -123,13 +136,15 @@ Verimail.MostCommonEmailDomains = {
 Verimail.MostCommonTlds = {
     com:null, org:null, edu:null, gov:null, uk:null, net:null,
     ca:null, de:null, jp:null, fr:null, au:null, us:null, ru:null,
-    ch:null, it:null, nl:null, se:null, dk:null, no:null, es:null, mil:null
+    ch:null, it:null, nl:null, se:null, dk:null, no:null, es:null, mil:null,
+    bg:null, biz:null, info:null, me:null
 };
 
 // Table of all TLDs registered by IANA
 // http://data.iana.org/TLD/tlds-alpha-by-domain.txt
 // Version 2012092500, Last Updated Tue Sep 25 07:07:01 2012 UTC
-Verimail.IANARegisteredTlds = { ac:null, ad:null, ae:null, aero:null, af:null, ag:null, ai:null, al:null,
+Verimail.IANARegisteredTlds = {
+    ac:null, ad:null, ae:null, aero:null, af:null, ag:null, ai:null, al:null,
     am:null, an:null, ao:null, aq:null, ar:null, arpa:null, as:null, asia:null, at:null, au:null,
     aw:null, ax:null, az:null, ba:null, bb:null, bd:null, be:null, bf:null, bg:null, bh:null, bi:null,
     biz:null, bj:null, bm:null, bn:null, bo:null, br:null, bs:null, bt:null, bv:null, bw:null, by:null,
@@ -430,7 +445,7 @@ Verimail.prototype.verify = function(email, onStatusUpdate){
                     if(status >= 0){
                         statusClass = isPendingStatus ? "pending" : "success";
                     }
-                    
+
                     if(config.onStatusChange){
                         config.onStatusChange(config, status, message, suggestion);
                     }
